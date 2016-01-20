@@ -1,2 +1,14 @@
 ---
 # tasks file for Nainterceptor.haproxy
+-   name: "Install haproxy"
+    yum: name=haproxy state=present
+    tags: haproxy
+
+-   name: "Configure haproxy"
+    template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+    notify: reload haproxy
+    tags: haproxy
+
+-   name: "Start haproxy"
+    service: name=haproxy state=started
+    tags: haproxy
