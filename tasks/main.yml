@@ -5,7 +5,7 @@
     tags: haproxy
 
 -   name: "Configure haproxy"
-    template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+    template: src=../files/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
     notify: reload haproxy
     tags: haproxy
 
