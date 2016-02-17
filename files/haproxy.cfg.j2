@@ -62,14 +62,15 @@ defaults
 #---------------------------------------------------------------------
 {% for frontend in haproxy.frontends %}
 frontend  {{ frontend.name }} *:{{ frontend.port }}
-    {% for backend in frontend.backends %}
-        {% if backend.acls is defined %}
-        {% for acl in backend.acls %}
-        acl is_{{backend.title}} {{acl}}
-        {% endfor %}
-        {% endif %}
-        use_backend {{backend.title}} {% if acl is defined %}if is_{{backend.title}}{% endif %}
+    {% for backend in frontend.backends -%}
+    {% if backend.acls is defined -%}
+    {% for acl in backend.acls %}
+    acl is_{{backend.title}} {{acl}}
+    {% endfor %}
+    use_backend {{backend.title}} {% if backend.acls is defined %}if is_{{backend.title}}{% endif %}
 
+
+    {% endif -%}
     {% endfor %}
     default_backend      {{frontend.default}}
 {% endfor %}
